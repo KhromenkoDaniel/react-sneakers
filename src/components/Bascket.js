@@ -1,10 +1,11 @@
-function Bascket() {
+function Bascket(props) {
  return (
   <div className='overlay'>
    <div className='shopping-bascket'>
     <h2 className='d-flex justify-between'>
      Корзина
      <img
+      onClick={props.onClose}
       className='removeBtn cu-p'
       src='\img\btn-remove-hovered.svg'
       alt='Button'

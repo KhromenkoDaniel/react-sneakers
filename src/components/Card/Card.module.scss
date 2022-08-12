@@ -5,7 +5,6 @@
  border-radius: 40px;
  margin-right: 30px;
  transition: box-shadow 0.18s ease-in-out, transform 0.18s ease-in-out;
- cursor: pointer;
 
  &:hover {
   box-sizing: border-box;
@@ -33,5 +32,12 @@
  }
  b {
   font-size: 14px;
+ }
+ .plus {
+  cursor: pointer;
+ }
+ .cardPicture {
+  width: 133px;
+  height: 112px;
  }
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import Bascket from './components/Bascket';
 import Card from './components/Card';
 import Header from './components/Header';
@@ -26,10 +27,11 @@ const arr = [
 ];
 
 function App() {
+ const [cardOpened, setCartOpened] = React.useState(false);
  return (
   <div className='wrapper clear'>
-   <Bascket />
-   <Header />
+   {cardOpened && <Bascket onClose={() => setCartOpened(false)} />}
+   <Header onClickCart={() => setCartOpened(true)} />
    <div className='content p-40'>
     <div className='d-flex align-center justify-between mb-40'>
      <h1>Всі кросівки</h1>
@@ -45,7 +47,8 @@ function App() {
        title={obj.title}
        price={obj.price}
        imageUrl={obj.imageUrl}
-       onClick={() => console.log(obj)}
+       onPlus={() => console.log('Жмякнули на плюс')}
+       onFavourite={() => console.log('Додали в закладки')}
       />
      ))}
     </div>
