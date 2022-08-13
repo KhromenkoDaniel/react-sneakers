@@ -3,34 +3,32 @@ import Bascket from './components/Bascket';
 import Card from './components/Card';
 import Header from './components/Header';
 
-const arr = [
- {
-  title: 'Чоловічі Кросівки Nike Blazer Mid Suede',
-  price: 3750,
-  imageUrl: '/img/sneakers-collection/1.jpg',
- },
- {
-  title: 'Чоловічі Кросівки Nike Air Max 270',
-  price: 3500,
-  imageUrl: '/img/sneakers-collection/2.jpg',
- },
- {
-  title: 'Мужские Кроссовки Nike Blazer Mid Suede',
-  price: 3300,
-  imageUrl: '/img/sneakers-collection/3.jpg',
- },
- {
-  title: 'Чоловічі Кросівки Puma X Aka Boku Future Rider',
-  price: 4000,
-  imageUrl: '/img/sneakers-collection/4.jpg',
- },
-];
-
 function App() {
+ const [items, setItems] = React.useState([]);
+ const [cartItems, setCartItems] = React.useState([]);
  const [cardOpened, setCartOpened] = React.useState(false);
+ React.useEffect(() => {
+  fetch('https://62f7b7df73b79d01535d3408.mockapi.io/items')
+   .then((res) => {
+    return res.json();
+   })
+   .then((json) => {
+    setItems(json);
+   });
+ }, []);
+
+ const onAddToCart = (obj) => {
+  setCartItems((prev) => [...prev, obj]);
+ };
  return (
   <div className='wrapper clear'>
-   {cardOpened && <Bascket onClose={() => setCartOpened(false)} />}
+   {cardOpened && (
+    <Bascket
+     items={cartItems}
+     disableScroll={cardOpened}
+     onClose={() => setCartOpened(false)}
+    />
+   )}
    <Header onClickCart={() => setCartOpened(true)} />
    <div className='content p-40'>
     <div className='d-flex align-center justify-between mb-40'>
@@ -40,14 +38,14 @@ function App() {
       <input placeholder='Пошук...' />
      </div>
     </div>
-    <div className='sneakers d-flex'>
-     {arr.map((obj, index) => (
+    <div className='sneakers d-flex flex-wrap'>
+     {items.map((obj, index) => (
       <Card
        key={index}
        title={obj.title}
        price={obj.price}
        imageUrl={obj.imageUrl}
-       onPlus={() => console.log('Жмякнули на плюс')}
+       onPlus={onAddToCart}
        onFavourite={() => console.log('Додали в закладки')}
       />
      ))}

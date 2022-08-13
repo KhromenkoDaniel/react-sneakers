@@ -1,11 +1,12 @@
-function Bascket(props) {
+import React from 'react';
+function Bascket({ onClose, items = [] }) {
  return (
   <div className='overlay'>
    <div className='shopping-bascket'>
     <h2 className='d-flex justify-between'>
      Корзина
      <img
-      onClick={props.onClose}
+      onClick={onClose}
       className='removeBtn cu-p'
       src='\img\btn-remove-hovered.svg'
       alt='Button'
@@ -13,51 +14,23 @@ function Bascket(props) {
     </h2>
 
     <div className='items'>
-     <div className='cartItem d-flex align-center mb-20'>
-      <div
-       style={{ backgroundImage: 'url(img/sneakers-collection/1.jpg)' }}
-       className='cartItem-img'
-      ></div>
-      <div className='mr-20'>
-       <p className='mb-5'>Чоловічі Кросівки Nike Air Max 270</p>
-       <b>3 500 грн.</b>
+     {items.map((obj) => (
+      <div className='cartItem d-flex align-center mb-20'>
+       <div
+        style={{ backgroundImage: `url(${obj.imageUrl})` }}
+        className='cartItem-img'
+       ></div>
+       <div className='mr-20'>
+        <p className='mb-5'>{obj.title}</p>
+        <b>{obj.price} грн.</b>
+       </div>
+       <img
+        className='removeBtn'
+        src='\img\btn-remove-hovered.svg'
+        alt='Button'
+       />
       </div>
-      <img
-       className='removeBtn'
-       src='\img\btn-remove-hovered.svg'
-       alt='Button'
-      />
-     </div>
-     <div className='cartItem d-flex align-center mb-20'>
-      <div
-       style={{ backgroundImage: 'url(img/sneakers-collection/1.jpg)' }}
-       className='cartItem-img'
-      ></div>
-      <div className='mr-20'>
-       <p className='mb-5'>Чоловічі Кросівки Nike Air Max 270</p>
-       <b>3 500 грн.</b>
-      </div>
-      <img
-       className='removeBtn'
-       src='\img\btn-remove-hovered.svg'
-       alt='Button'
-      />
-     </div>
-     <div className='cartItem d-flex align-center mb-20'>
-      <div
-       style={{ backgroundImage: 'url(img/sneakers-collection/1.jpg)' }}
-       className='cartItem-img'
-      ></div>
-      <div className='mr-20'>
-       <p className='mb-5'>Чоловічі Кросівки Nike Air Max 270</p>
-       <b>3 500 грн.</b>
-      </div>
-      <img
-       className='removeBtn'
-       src='\img\btn-remove-hovered.svg'
-       alt='Button'
-      />
-     </div>
+     ))}
     </div>
     <div className='cartTotalBlock'>
      <ul>

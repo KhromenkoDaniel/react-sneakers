@@ -58,7 +58,7 @@ header {
 }
 
 .overlay {
- position: absolute;
+ position: fixed;
  left: 0;
  top: 0;
  background-color: rgba(0, 0, 0, 0.5);
@@ -77,10 +77,9 @@ header {
  background: #ffffff;
  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
  padding: 30px;
-
  .items {
   flex: 1;
-
+  overflow: auto;
   margin-bottom: 40px;
  }
 
@@ -151,7 +150,7 @@ header {
 }
 
 .cartItem {
- padding: 20px;
+ padding: 10px;
  border: 1px solid #f3f3f3;
  border-radius: 40px;
  font-style: normal;
@@ -165,8 +164,8 @@ header {
  }
 
  .cartItem-img {
-  height: 70px;
-  width: 70px;
+  height: 100px;
+  width: 100px;
   background-size: contain;
   background-position: 0 10px;
   background-repeat: no-repeat;
@@ -179,7 +178,7 @@ header {
  }
 
  b {
-  font-size: 14px;
+  font-size: 16px;
  }
 
  .removeBtn {
