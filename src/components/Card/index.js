@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './Card.module.scss';
 
 function Card({ onFavourite, imageUrl, price, title, onPlus }) {
@@ -6,6 +6,7 @@ function Card({ onFavourite, imageUrl, price, title, onPlus }) {
 
  const onClickPlus = () => {
   onPlus({ imageUrl, price, title });
+
   setIsAdded(!isAdded);
  };
 

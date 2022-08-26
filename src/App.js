@@ -18,8 +18,17 @@ function App() {
  }, []);
 
  const onAddToCart = (obj) => {
-  setCartItems((prev) => [...prev, obj]);
+  setCartItems(() => {
+   return cartItems.find((el) => el.id === obj.id)
+    ? cartItems.filter((el) => el.id !== obj.id)
+    : [...cartItems, obj];
+  });
  };
+
+ function onRemoveFromCart(index) {
+  setCartItems(cartItems.filter((_, ind) => ind !== index));
+ }
+
  return (
   <div className='wrapper clear'>
    {cardOpened && (
@@ -27,6 +36,7 @@ function App() {
      items={cartItems}
      disableScroll={cardOpened}
      onClose={() => setCartOpened(false)}
+     onCloseCart={(index) => onRemoveFromCart(index)}
     />
    )}
    <Header onClickCart={() => setCartOpened(true)} />

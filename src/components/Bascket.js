@@ -1,5 +1,5 @@
 import React from 'react';
-function Bascket({ onClose, items = [] }) {
+function Bascket({ onCloseCart, onClose, items = [] }) {
  return (
   <div className='overlay'>
    <div className='shopping-bascket'>
@@ -14,7 +14,7 @@ function Bascket({ onClose, items = [] }) {
     </h2>
 
     <div className='items'>
-     {items.map((obj) => (
+     {items.map((obj, index) => (
       <div className='cartItem d-flex align-center mb-20'>
        <div
         style={{ backgroundImage: `url(${obj.imageUrl})` }}
@@ -25,6 +25,7 @@ function Bascket({ onClose, items = [] }) {
         <b>{obj.price} грн.</b>
        </div>
        <img
+        onClick={() => onCloseCart(index)}
         className='removeBtn'
         src='\img\btn-remove-hovered.svg'
         alt='Button'
