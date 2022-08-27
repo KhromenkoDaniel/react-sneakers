@@ -7,6 +7,7 @@ function App() {
  const [items, setItems] = React.useState([]);
  const [cartItems, setCartItems] = React.useState([]);
  const [cardOpened, setCartOpened] = React.useState(false);
+
  React.useEffect(() => {
   fetch('https://62f7b7df73b79d01535d3408.mockapi.io/items')
    .then((res) => {
@@ -19,8 +20,8 @@ function App() {
 
  const onAddToCart = (obj) => {
   setCartItems(() => {
-   return cartItems.find((el) => el.id === obj.id)
-    ? cartItems.filter((el) => el.id !== obj.id)
+   return cartItems.find((el) => el.title === obj.title)
+    ? cartItems.filter((el) => el.title !== obj.title)
     : [...cartItems, obj];
   });
  };
