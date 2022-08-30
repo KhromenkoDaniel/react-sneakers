@@ -18,7 +18,7 @@ function Card({ onFavourite, imageUrl, price, title, onPlus }) {
    </div>
    <img className={styles.cardPicture} src={imageUrl} alt='Sneakers' />
    <h5>{title}</h5>
-   <div className='d-flex justify-between'>
+   <div className='cardPrice d-flex justify-between'>
     <div className='d-flex flex-column'>
      <span>Ціна:</span>
      <b>{price} грн.</b>
