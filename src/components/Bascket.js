@@ -1,10 +1,10 @@
 import React from 'react';
-function Bascket({ onCloseCart, onClose, items = [] }) {
+function Bascket({ onCloseCart, onClose, onRemove, items = [] }) {
  return (
   <div className='overlay'>
    <div className='shopping-bascket'>
     <h2 className='d-flex justify-between'>
-     Корзина
+     Кошик
      <img
       onClick={onClose}
       className='removeBtn cu-p'
@@ -12,7 +12,21 @@ function Bascket({ onCloseCart, onClose, items = [] }) {
       alt='Button'
      />
     </h2>
-
+    <div className='cartEmpty d-flex align-center justify-center flex-column flex'>
+     <img
+      className='emptyBacket'
+      src='/img/empty-cart.jpg'
+      alt='Empty Backet'
+     />
+     <h2>Кошик пустий</h2>
+     <p className='opacity-6'>
+      Додайте хоча б одну пару кросівок, щоб зробити замовлення
+     </p>
+     <button className='greenButton'>
+      <img src='/img/arrow.svg' alt='Arrow' />
+      Повернутись назад
+     </button>
+    </div>
     <div className='items'>
      {items.map((obj, index) => (
       <div className='cartItem d-flex align-center mb-20'>
@@ -25,7 +39,7 @@ function Bascket({ onCloseCart, onClose, items = [] }) {
         <b>{obj.price} грн.</b>
        </div>
        <img
-        onClick={() => onCloseCart(index)}
+        onClick={() => onRemove(obj.id)}
         className='removeBtn'
         src='\img\btn-remove-hovered.svg'
         alt='Button'
