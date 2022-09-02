@@ -46,15 +46,14 @@ header {
   width: 280px;
   line-height: 24px;
  }
- h2 {
- }
+
  .greenButton {
   width: 245px;
   margin-top: 20px;
  }
  &:hover {
   img {
-   transform: rotate(180deg) translateX(3px);
+   transform: translateX(3px);
   }
  }
  img {
@@ -115,7 +114,7 @@ header {
  padding: 30px;
  .items {
   flex: 1;
-  overflow: auto;
+  overflow: scroll;
   margin-bottom: 40px;
  }
 
