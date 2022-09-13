@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Bascket({ onCloseCart, onClose, onRemove, items = [] }) {
+function Bascket({ onClose, onRemove, items = [] }) {
  return (
   <div className='overlay'>
    <div className='shopping-bascket'>
@@ -15,7 +15,7 @@ function Bascket({ onCloseCart, onClose, onRemove, items = [] }) {
     </h2>
 
     {items.length > 0 ? (
-     <div>
+     <div className='d-flex flex-column'>
       <div className='items'>
        {items.map((obj) => (
         <div className='cartItem d-flex align-center mb-20'>
