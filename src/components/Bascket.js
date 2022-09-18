@@ -15,15 +15,15 @@ function Bascket({ onClose, onRemove, items = [] }) {
     </h2>
 
     {items.length > 0 ? (
-     <div className='d-flex flex-column'>
+     <div>
       <div className='items'>
-       {items.map((obj) => (
-        <div className='cartItem d-flex align-center mb-20'>
+       {items.map((obj, id) => (
+        <div key={id} className='cartItem d-flex align-center mb-20'>
          <div
           style={{ backgroundImage: `url(${obj.imageUrl})` }}
           className='cartItem-img'
          ></div>
-         <div className='mr-20'>
+         <div className='mr-20 flex'>
           <p className='mb-5'>{obj.title}</p>
           <b>{obj.price} грн.</b>
          </div>

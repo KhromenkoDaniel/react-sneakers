@@ -1,5 +1,3 @@
-@import 'macro-css';
-
 * {
  font-family: 'Inter', system-ui;
 }
@@ -93,7 +91,7 @@ header {
 }
 
 .overlay {
- position: fixed;
+ position: absolute;
  left: 0;
  top: 0;
  background-color: rgba(0, 0, 0, 0.5);
@@ -113,8 +111,8 @@ header {
  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
  padding: 30px;
  .items {
-  flex: 1 1 auto;
-  overflow: scroll;
+  flex: 1;
+  overflow: auto;
   margin-bottom: 40px;
  }
 
@@ -195,17 +193,16 @@ header {
  transition: transform 0.18s ease-in-out;
  overflow: hidden;
 
- &:hover {
-  transform: translateY(-5px);
- }
-
  .cartItem-img {
-  height: 100px;
-  width: 100px;
+  height: 70px;
+  width: 70px;
   background-size: contain;
-  background-position: 0 10px;
+  background-position: 0 -3px;
   background-repeat: no-repeat;
   margin-right: 20px;
+ }
+ &:hover {
+  transform: translateY(-5px);
  }
 
  p {

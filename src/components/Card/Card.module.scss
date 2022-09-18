@@ -1,6 +1,4 @@
 .card {
- display: flex;
- flex-direction: column;
  padding: 30px;
  width: 220px;
  border: 1px solid #f3f3f3;
@@ -31,7 +29,6 @@
  h5 {
   font-weight: 600;
   font-size: 13px;
-  flex: 1 1 auto;
  }
  b {
   font-size: 14px;

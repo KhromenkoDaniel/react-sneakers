@@ -88,26 +88,57 @@ function App() {
  const [seachValue, setSeachValue] = React.useState('');
  const [cardOpened, setCartOpened] = React.useState(false);
 
- React.useEffect(() => {
-  axios.get('https://62f7b7df73b79d01535d3408.mockapi.io/items').then((res) => {
-   setItems(res.data);
-  });
-  axios.get('https://62f7b7df73b79d01535d3408.mockapi.io/cart').then((res) => {
-   setCartItems(res.data);
-  });
+ React.useEffect(async () => {
+  async function fetchData() {
+   const cartResponse = await axios.get(
+    'https://62f7b7df73b79d01535d3408.mockapi.io/cart'
+   );
+   const favouriteResponse = await axios.get(
+    'https://62f7b7df73b79d01535d3408.mockapi.io/favourite'
+   );
+   const itemsResponse = await axios.get(
+    'https://62f7b7df73b79d01535d3408.mockapi.io/items'
+   );
+
+   setItems(itemsResponse.data);
+   setCartItems(cartResponse.data);
+   setFavourites(favouriteResponse.data);
+  }
  }, []);
 
  const onChangeSearchInput = (event) => {
   setSeachValue(event.target.value);
  };
  const onAddToCart = (obj) => {
-  axios.post('https://62f7b7df73b79d01535d3408.mockapi.io/cart', obj);
-  setCartItems((prev) => [...prev, obj]);
+  try {
+   if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+    setCartItems((prev) =>
+     prev.filter((item) => Number(item.id) !== Number(obj.id))
+    );
+   } else {
+    axios.post('https://62f7b7df73b79d01535d3408.mockapi.io/cart', obj);
+    setCartItems((prev) => [...prev, obj]);
+   }
+  } catch (error) {}
  };
 
- const onAddFavourite = (obj) => {
-  axios.post('https://62f7b7df73b79d01535d3408.mockapi.io/favourite', obj);
-  setFavourites((prev) => [...prev, obj]);
+ const onAddToFavourite = async (obj) => {
+  try {
+   if (favourites.find((favObj) => favObj.id === obj.id)) {
+    axios.delete(
+     `https://62f7b7df73b79d01535d3408.mockapi.io/favourite/${obj.id}`
+    );
+    // setFavourites((prev) => prev.filter((item) => item.id !== obj.id));
+   } else {
+    const { data } = await axios.post(
+     'https://62f7b7df73b79d01535d3408.mockapi.io/favourite',
+     obj
+    );
+    setFavourites((prev) => [...prev, data]);
+   }
+  } catch (error) {
+   alert('Не удалось добавить в фавориты');
+  }
  };
 
  const onRemoveItem = (id, obj) => {
@@ -136,15 +167,22 @@ function App() {
        setSeachValue={setSeachValue}
        onChangeSearchInput={onChangeSearchInput}
        items={items}
+       cartItems={cartItems}
        onAddToCart={onAddToCart}
-       onAddFavourite={onAddFavourite}
+       onAddToFavourite={onAddToFavourite}
       />
      }
     />
     <Route
      exact
      path='/favourites'
-     element={<Favourites items={favourites} />}
+     element={
+      <Favourites
+       items={favourites}
+       onAddToCart={onAddToCart}
+       onAddToFavourite={onAddToFavourite}
+      />
+     }
     ></Route>
    </Routes>
   </div>

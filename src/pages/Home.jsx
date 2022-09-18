@@ -6,7 +6,8 @@ function Home({
  onChangeSearchInput,
  items,
  onAddToCart,
- onAddFavourite,
+ onAddToFavourite,
+ cartItems,
 }) {
  return (
   <div className='content p-40'>
@@ -34,14 +35,13 @@ function Home({
      .filter((item) =>
       item.title.toLowerCase().includes(seachValue.toLowerCase())
      )
-     .map((obj, index) => (
+     .map((obj) => (
       <Card
-       key={index}
-       title={obj.title}
-       price={obj.price}
-       imageUrl={obj.imageUrl}
+       key={obj.id}
        onPlus={(obj) => onAddToCart(obj)}
-       onFavourite={(obj) => onAddFavourite(obj)}
+       onFavourite={(obj) => onAddToFavourite(obj)}
+       {...obj}
+       added={cartItems.some((obj) => obj.id)}
       />
      ))}
    </div>
