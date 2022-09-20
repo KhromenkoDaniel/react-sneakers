@@ -1,6 +1,33 @@
 import React from 'react';
+import Info from './Info';
+import AppContext from '../context';
+import axios from 'axios';
 
 function Bascket({ onClose, onRemove, items = [] }) {
+ const [isOrderComlete, setIsOrderComlete] = React.useState(false);
+ const [OrderID, setOrderID] = React.useState(null);
+ const [isLoading, setIsLoading] = React.useState(false);
+
+ const { setCartItems, cartItems } = React.useContext(AppContext);
+
+ const onClickOrder = async () => {
+  try {
+   const { data } = await axios.post(
+    'https://62f7b7df73b79d01535d3408.mockapi.io/orders',
+    {
+     items: cartItems,
+    }
+   );
+   await axios.put('https://62f7b7df73b79d01535d3408.mockapi.io/cart', []);
+   setOrderID(data.id);
+   setIsOrderComlete(true);
+   setCartItems([]);
+  } catch (error) {
+   alert('Не вдалось сформувати замовлення :(');
+  }
+  setIsLoading(false);
+ };
+
  return (
   <div className='overlay'>
    <div className='shopping-bascket'>
@@ -15,7 +42,7 @@ function Bascket({ onClose, onRemove, items = [] }) {
     </h2>
 
     {items.length > 0 ? (
-     <div>
+     <div className='d-flex flex-column flex'>
       <div className='items'>
        {items.map((obj, id) => (
         <div key={id} className='cartItem d-flex align-center mb-20'>
@@ -50,27 +77,25 @@ function Bascket({ onClose, onRemove, items = [] }) {
          <b>2761 грн</b>
         </li>
        </ul>
-       <button className='greenButton'>
+       <button
+        disabled={isLoading}
+        onClick={onClickOrder}
+        className='greenButton'
+       >
         Оформити замовлення <img src='/img/arrow-right.svg' alt='arrow' />
        </button>
       </div>
      </div>
     ) : (
-     <div className='cartEmpty d-flex align-center justify-center flex-column flex'>
-      <img
-       className='emptyBacket'
-       src='/img/empty-cart.jpg'
-       alt='Empty Backet'
-      />
-      <h2>Кошик пустий</h2>
-      <p className='opacity-6'>
-       Додайте хоча б одну пару кросівок, щоб зробити замовлення
-      </p>
-      <button onClick={onClose} className='greenButton'>
-       <img src='/img/arrow.svg' alt='Arrow' />
-       Повернутись назад
-      </button>
-     </div>
+     <Info
+      title={isOrderComlete ? 'Замовлення сформовано!' : 'Кошик пустий'}
+      description={
+       isOrderComlete
+        ? `Ваше замовлення #${OrderID} скоро буде передано кур\`єру для доставки`
+        : 'Додайте хоча б одну пару кросівок, щоб зробити замовлення'
+      }
+      image={isOrderComlete ? '/img/order-done.jpg' : '/img/empty-cart.jpg'}
+     />
     )}
    </div>
   </div>

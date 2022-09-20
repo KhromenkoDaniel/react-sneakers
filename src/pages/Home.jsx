@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../components/Card';
+import AppContext from '../context';
 
 function Home({
  seachValue,
@@ -8,7 +9,6 @@ function Home({
  items,
  onAddToCart,
  onAddToFavourite,
- cartItems,
  isLoading,
 }) {
  const renderItems = () => {
@@ -22,7 +22,6 @@ function Home({
        onPlus={(obj) => onAddToCart(obj)}
        onFavourite={(obj) => onAddToFavourite(obj)}
        {...obj}
-       added={cartItems.some((obj) => obj.id)}
        loading={isLoading}
       />
      ))
