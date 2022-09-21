@@ -1,29 +1,40 @@
 import React from 'react';
 import Info from './Info';
-import AppContext from '../context';
+import { useCart } from '../hooks/useCart';
 import axios from 'axios';
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 function Bascket({ onClose, onRemove, items = [] }) {
- const [isOrderComlete, setIsOrderComlete] = React.useState(false);
+ const { cartItems, setCartItems, totalPrice } = useCart();
+ const [isOrderComlete, setIsOrderComplete] = React.useState(false);
  const [OrderID, setOrderID] = React.useState(null);
  const [isLoading, setIsLoading] = React.useState(false);
 
- const { setCartItems, cartItems } = React.useContext(AppContext);
-
  const onClickOrder = async () => {
   try {
+   setIsLoading(true);
    const { data } = await axios.post(
     'https://62f7b7df73b79d01535d3408.mockapi.io/orders',
     {
      items: cartItems,
     }
    );
-   await axios.put('https://62f7b7df73b79d01535d3408.mockapi.io/cart', []);
+
    setOrderID(data.id);
-   setIsOrderComlete(true);
+   setIsOrderComplete(true);
    setCartItems([]);
+
+   for (let i = 0; i < cartItems.length; i++) {
+    const item = cartItems[i];
+    await axios.delete(
+     'https://62f7b7df73b79d01535d3408.mockapi.io/cart/' + item.id
+    );
+    await delay(1000);
+   }
   } catch (error) {
-   alert('Не вдалось сформувати замовлення :(');
+   alert('Помилка при створенні замовлення :(');
+   console.error(error);
   }
   setIsLoading(false);
  };
@@ -69,12 +80,12 @@ function Bascket({ onClose, onRemove, items = [] }) {
         <li>
          <span>Всього:</span>
          <div></div>
-         <b>14 136 грн.</b>
+         <b>{totalPrice} грн.</b>
         </li>
         <li>
          <span>ПДВ 20%:</span>
          <div></div>
-         <b>2761 грн</b>
+         <b>{totalPrice * 0.2} грн</b>
         </li>
        </ul>
        <button

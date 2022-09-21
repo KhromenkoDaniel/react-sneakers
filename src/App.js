@@ -7,8 +7,10 @@ import Header from './components/Header';
 
 import Favourites from './pages/Favourites';
 import Home from './pages/Home';
+import Orders from './pages/Orders';
 
 import AppContext from './context';
+
 // [
 //   {
 //    "id": "1",
@@ -164,6 +166,7 @@ function App() {
     favourites,
     isItemAdded,
     onAddToFavourite,
+    onAddToCart,
     setCartOpened,
     setCartItems,
    }}
@@ -196,6 +199,7 @@ function App() {
       }
      />
      <Route exact path='/favourites' element={<Favourites />}></Route>
+     <Route exact path='/orders' element={<Orders />}></Route>
     </Routes>
    </div>
   </AppContext.Provider>
