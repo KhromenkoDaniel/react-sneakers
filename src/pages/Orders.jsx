@@ -14,8 +14,6 @@ function Orders() {
     const { data } = await axios.get(
      'https://62f7b7df73b79d01535d3408.mockapi.io/orders'
     );
-    console.log(data);
-    // console.log(OrderID);
 
     setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []));
     setIsLoading(false);
@@ -26,6 +24,7 @@ function Orders() {
    }
   })();
  }, []);
+
  return (
   <div className='content p-40'>
    <div className='d-flex justify-between mb-40 flex-column'>
@@ -35,10 +34,10 @@ function Orders() {
    <div className='sneakers d-flex flex-wrap'>
     {(isLoading ? [...Array(8)] : orders).map((el, index) => (
      <div className='flex-column'>
-      <h2 className='ml-10'>Замовлення #{OrderID}</h2>
-      <span className='horizontalLine'></span>
+      {/* <h2 className='ml-10'>Замовлення #{OrderID}</h2>
+      <span className='horizontalLine'></span> */}
       <Card
-       key={index}
+       key={index + '1' + index}
        loading={isLoading}
        onFavourite={(el) => onAddToFavourite(el)}
        {...el}

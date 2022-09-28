@@ -1,11 +1,14 @@
 import React from 'react';
-import Info from './Info';
-import { useCart } from '../hooks/useCart';
 import axios from 'axios';
+
+import Info from '../Info';
+import { useCart } from '../../hooks/useCart';
+
+import styles from './Bascket.module.scss';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function Bascket({ onClose, onRemove, items = [] }) {
+function Bascket({ onClose, onRemove, items = [], opened }) {
  const { cartItems, setCartItems, totalPrice } = useCart();
  const [isOrderComlete, setIsOrderComplete] = React.useState(false);
  const [OrderID, setOrderID] = React.useState(null);
@@ -40,8 +43,8 @@ function Bascket({ onClose, onRemove, items = [] }) {
  };
 
  return (
-  <div className='overlay'>
-   <div className='shopping-bascket'>
+  <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
+   <div className={`${styles.shoppingBascket}`}>
     <h2 className='d-flex justify-between'>
      Кошик
      <img
@@ -54,7 +57,7 @@ function Bascket({ onClose, onRemove, items = [] }) {
 
     {items.length > 0 ? (
      <div className='d-flex flex-column flex'>
-      <div className='items'>
+      <div className='items flex'>
        {items.map((obj, id) => (
         <div key={id} className='cartItem d-flex align-center mb-20'>
          <div
