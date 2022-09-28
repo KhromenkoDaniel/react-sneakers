@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import Card from '../components/Card';
 import AppContext from '../context';
+
 function Orders() {
  const { onAddToFavourite } = React.useContext(AppContext);
  const [orders, setOrders] = React.useState([]);
@@ -13,6 +14,9 @@ function Orders() {
     const { data } = await axios.get(
      'https://62f7b7df73b79d01535d3408.mockapi.io/orders'
     );
+    console.log(data);
+    // console.log(OrderID);
+
     setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []));
     setIsLoading(false);
     setOrderID(data.id);
@@ -24,16 +28,17 @@ function Orders() {
  }, []);
  return (
   <div className='content p-40'>
-   <div className='d-flex align-center justify-between mb-40'>
-    <h1>Мої замовлення</h1>
-    <span className='w100p'></span>
+   <div className='d-flex justify-between mb-40 flex-column'>
+    <h1 className='ml-10'>Мої замовлення</h1>
+    <span className='horizontalLine'></span>
    </div>
    <div className='sneakers d-flex flex-wrap'>
-    {(isLoading ? [...Array(8)] : orders).map((el, _) => (
+    {(isLoading ? [...Array(8)] : orders).map((el, index) => (
      <div className='flex-column'>
-      <h2>Замовлення #{OrderID}</h2>
+      <h2 className='ml-10'>Замовлення #{OrderID}</h2>
+      <span className='horizontalLine'></span>
       <Card
-       key={_}
+       key={index}
        loading={isLoading}
        onFavourite={(el) => onAddToFavourite(el)}
        {...el}

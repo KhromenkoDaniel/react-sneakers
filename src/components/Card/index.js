@@ -58,16 +58,18 @@ function Card({
        <span>Ціна:</span>
        <b>{price} грн.</b>
       </div>
-      <img
-       className={styles.plus}
-       onClick={onClickPlus}
-       src={
-        isItemAdded(id)
-         ? '/img/Plus on card checked.svg'
-         : '/img/Plus on card.svg'
-       }
-       alt='plus'
-      />
+      {onPlus && (
+       <img
+        className={styles.plus}
+        onClick={onClickPlus}
+        src={
+         isItemAdded(id)
+          ? '/img/Plus on card checked.svg'
+          : '/img/Plus on card.svg'
+        }
+        alt='plus'
+       />
+      )}
      </div>
     </>
    )}
