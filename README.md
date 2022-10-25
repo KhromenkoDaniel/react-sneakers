@@ -1,4 +1,13 @@
-An array of items
+**Stack:**
+
+- ReactJS + хуки
+- React Router
+- Axios
+- SCSS
+- React Context
+- React Skeleton
+
+**An array of items**
 
 // [
 // {
